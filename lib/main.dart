@@ -1,3 +1,5 @@
+import 'package:flutapp/intro_test_screen.dart';
+import 'package:flutapp/menu_test_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -19,6 +21,11 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       home: const MyHomePage(),
+      initialRoute: '/',
+      routes: {
+        '/introTestScreen': (context) => IntroTestScreen(),
+        '/menuTestScreen': (context) => MenuTestScreen(),
+      },
     );
   }
 }
@@ -31,27 +38,23 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-
   final String photoUrl = "https://sun9-21.userapi.com/impg/wTbSz3qf8l8L-ipwSSVTbg6Iyvk8ZRsLtP16Kg/EJ46-QANIWU.jpg?size=2560x1707&quality=95&sign=827855941fd3f8eee2c3a4ebca0e0d6f&type=album";
   final String fio = "Калинин Александр\nВасильевич";
   final String employeeNumber = "БСБО-11-22";
   final String employeeCode = "22Б0662";
 
-
   DateTime now = DateTime.now();
-
-
 
   @override
   Widget build(BuildContext context) {
-
     return SafeArea(
       child: Scaffold(
         backgroundColor: const Color(0xFFDFF0FF),
         appBar: AppBar(
           elevation: 0,
           backgroundColor: Colors.white,
-          title: const Text('Страничка',
+          title: const Text(
+            'Суперопрос',
             style: TextStyle(
               color: Colors.indigo,
               fontSize: 18,
@@ -61,7 +64,8 @@ class _MyHomePageState extends State<MyHomePage> {
           actions: <Widget>[
             Padding(
               padding: const EdgeInsets.only(right: 16.0),
-              child: Text('${DateTime.now().day}.${DateTime.now().month}.${DateTime.now().year}',
+              child: Text(
+                '${DateTime.now().day}.${DateTime.now().month}.${DateTime.now().year}',
                 style: const TextStyle(
                   color: Colors.indigo,
                   fontSize: 18,
@@ -93,77 +97,47 @@ class _MyHomePageState extends State<MyHomePage> {
                     blurRadius: 6.0,
                   ),
                 ],
-                borderRadius: BorderRadius.circular(16.0)
-            ),
+                borderRadius: BorderRadius.circular(16.0)),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisSize: MainAxisSize.min,
               children: [
-                Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(16.0),
-                  ),
-                  clipBehavior: Clip.hardEdge,
-                  child: Image.network(
-                    photoUrl,
-                    height: 120.0,
-                    width: 120.0,
-                    fit: BoxFit.cover,
-                  ),
-                ),
-                const SizedBox(height: 8.0),
                 Text(
-                  fio,
+                  "Привет!\n\nЭто гениальный тест, в котором нельзя ошибиться",
                   style: const TextStyle(
                     fontSize: 18.0,
                     fontWeight: FontWeight.bold,
                     color: Colors.white,
-                    height: 1
+                    height: 1,
                   ),
                   textAlign: TextAlign.center,
                 ),
-                const SizedBox(height: 16.0),
-                Text(
-                  "Группа",
-                  style: const TextStyle(
-                    fontSize: 12.0,
-                    fontWeight: FontWeight.normal,
-                    color: Colors.white,
+                SizedBox(height: 20,),
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.pushNamed(context, "/introTestScreen");
+                  },
+                  style: ElevatedButton.styleFrom(
+                    padding: EdgeInsets.all(15),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
                   ),
-                ),
-                Text(
-                  employeeNumber,
-                  style: const TextStyle(
-                    fontSize: 16.0,
-                    color: Colors.white,
-                  ),
-                ),
-                Divider(
-                  color: Colors.white,
-                  indent: 100,
-                  endIndent: 100,
-                ),
-                Text(
-                  "Номер студенческого билета",
-                  style: const TextStyle(
-                    fontSize: 12.0,
-                    fontWeight: FontWeight.normal,
-                    color: Colors.white,
-                  ),
-                ),
-                Text(
-                  employeeCode,
-                  style: const TextStyle(
-                    fontSize: 16.0,
-                    color: Colors.white,
+                  child: Text(
+                    'Погнали',
+                    style: const TextStyle(
+                      fontSize: 16.0,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.indigo,
+                      height: 1,
+                    ),
                   ),
                 ),
               ],
             ),
           ),
         ),
-
       ),
     );
   }
