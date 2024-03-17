@@ -1,4 +1,8 @@
+import 'dart:math';
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 class MenuTestScreen extends StatefulWidget {
   MenuTestScreen({Key? key}) : super(key: key);
@@ -13,6 +17,7 @@ class _MenuTestScreenState extends State<MenuTestScreen> {
   static List<Widget> _pages = <Widget>[
     Page1(),
     Page2(),
+    Page3(),
   ];
 
   void _onItemTapped(int index) {
@@ -55,12 +60,16 @@ class _MenuTestScreenState extends State<MenuTestScreen> {
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            icon: Icon(Icons.forest),
-            label: 'Мишка',
+            icon: Icon(Icons.view_column),
+            label: 'Widget-е Column',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.plus_one),
-            label: 'Подсчёт медведей',
+            icon: Icon(Icons.list),
+            label: 'Widget-е ListView',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.list_alt),
+            label: 'Widget-е ListView.separated',
           ),
         ],
         currentIndex: _selectedIndex,
@@ -71,35 +80,159 @@ class _MenuTestScreenState extends State<MenuTestScreen> {
   }
 }
 
-class Page1 extends StatelessWidget {
+class Page1 extends StatefulWidget {
+  Page1({Key? key}) : super(key: key);
+
+  @override
+  State<Page1> createState() => _Page1State();
+}
+
+class _Page1State extends State<Page1> {
+  List<String> items = ['Item 1', 'Item 2', 'Item 3'];
+
+  void addItem() {
+    setState(() {
+      items.add('New Item');
+    });
+  }
+
+  void removeItem(int index) {
+    setState(() {
+      items.removeAt(index);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Text("Тест пройден"),
-          Image.network(
-            'https://masyamba.ru/белый-медведь-картинки/77-белый-медведь.jpg',
-            width: 300,
-            height: 200,
-            fit: BoxFit.cover,
+    return Column(
+      children: [
+        SizedBox(height: 20),
+        ElevatedButton(
+          onPressed: addItem,
+          child: Text('Add Item'),
+        ),
+        Expanded(
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: items
+                  .map(
+                    (item) => ListTile(
+                      title: Text(items[items.indexOf(item)]),
+                      trailing: IconButton(
+                        icon: Icon(Icons.delete),
+                        onPressed: () => removeItem(
+                          items.indexOf(item),
+                        ),
+                      ),
+                    ),
+                  )
+                  .toList(),
+            ),
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }
 
-class Page2 extends StatelessWidget {
+class Page2 extends StatefulWidget {
+  Page2({Key? key}) : super(key: key);
+
+  @override
+  State<Page2> createState() => _Page2State();
+}
+
+class _Page2State extends State<Page2> {
+  List<String> items = ['Item 1', 'Item 2', 'Item 3'];
+
+  void addItem() {
+    setState(() {
+      items.add('New Item');
+    });
+  }
+
+  void removeItem(int index) {
+    setState(() {
+      items.removeAt(index);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      itemBuilder: (context, index) {
-        return ListTile(
-          title: Text('Медведь ${index + 1}'),
-        );
-      },
+    return Column(
+      children: <Widget>[
+        SizedBox(height: 20),
+        ElevatedButton(
+          onPressed: addItem,
+          child: Text('Add Item'),
+        ),
+        Expanded(
+          child: ListView.builder(
+            itemCount: items.length,
+            itemBuilder: (context, index) {
+              return ListTile(
+                title: Text(items[index]),
+                trailing: IconButton(
+                  icon: Icon(Icons.delete),
+                  onPressed: () => removeItem(index),
+                ),
+              );
+            },
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class Page3 extends StatefulWidget {
+  Page3({Key? key}) : super(key: key);
+
+  @override
+  State<Page3> createState() => _Page3State();
+}
+
+class _Page3State extends State<Page3> {
+  List<String> items = ['Item 1', 'Item 2', 'Item 3'];
+
+  void addItem() {
+    setState(() {
+      items.add('New Item');
+    });
+  }
+
+  void removeItem(int index) {
+    setState(() {
+      items.removeAt(index);
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: <Widget>[
+        SizedBox(height: 20),
+        ElevatedButton(
+          onPressed: addItem,
+          child: Text('Add Item'),
+        ),
+        Expanded(
+          child: ListView.separated(
+            itemCount: items.length,
+            separatorBuilder: (context, index) => Divider(),
+            itemBuilder: (context, index) {
+              return ListTile(
+                title: Text(items[index]),
+                trailing: IconButton(
+                  icon: Icon(Icons.delete),
+                  onPressed: () => removeItem(index),
+                ),
+              );
+            },
+          ),
+        ),
+      ],
     );
   }
 }

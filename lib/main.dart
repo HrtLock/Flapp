@@ -1,4 +1,3 @@
-import 'package:flutapp/intro_test_screen.dart';
 import 'package:flutapp/menu_test_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -23,7 +22,6 @@ class MyApp extends StatelessWidget {
       home: const MyHomePage(),
       initialRoute: '/',
       routes: {
-        '/introTestScreen': (context) => IntroTestScreen(),
         '/menuTestScreen': (context) => MenuTestScreen(),
       },
     );
@@ -116,7 +114,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 SizedBox(height: 20,),
                 ElevatedButton(
                   onPressed: () {
-                    Navigator.pushNamed(context, "/introTestScreen");
+                    Navigator.pushNamed(context, "/menuTestScreen");
                   },
                   style: ElevatedButton.styleFrom(
                     padding: EdgeInsets.all(15),
